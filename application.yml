@@ -1,19 +1,47 @@
+#Product service
+---
+
+server:
+  port: 8081
 
 spring:
- application:
-   name: config-server
- profiles:
-   active:
-   - dev
- datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/Microservices
-    username: postgres
-    password: postgres
- jpa:
-    show-sql: true
-    properties:
-        hibernate:
-            dialect: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-        ddl-auto: update
+  application:
+    name: Product-Service
+  profiles:
+    active:
+    - dev
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/product-service
+
+---
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: Product-Service
+  config:
+    activate:
+      on-profile:
+      - qa
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/product-service
+
+---
+
+server:
+  port: 8081
+
+spring:
+  application:
+    name: Product-Service
+  config:
+    activate:
+      on-profile:
+      - prod
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/product-service
